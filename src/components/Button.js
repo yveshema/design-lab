@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { darken, rgba } from 'polished';
 import { color, typography } from '../shared/styles';
 import { easing } from '../shared/animation';
@@ -32,7 +32,8 @@ const SIZES = {
     MEDIUM: 'medium',    
 };
 
-const StyledButton = styled.button`
+// const StyledButton = styled.button`
+const buttonStyles = css`
     border: 0;
     border-radius: 3em;
     cursor: pointer;
@@ -57,7 +58,7 @@ const StyledButton = styled.button`
 
     ${props => 
       !props.isLoading &&
-      `    
+      css`    
       &:hover {
         transform: translate3d(0, -2px, 0);
         box-shadow: rgba(0,0,0, 0.2) 0 2px 6px 0;
@@ -74,7 +75,7 @@ const StyledButton = styled.button`
       &:focus:hover {
         box-shadow: ${rgba(color.primary, 0.2)} 0 8px 18px 0px;
       }
-    `}
+    `};
 
     ${Text} {
         transform: scale3d(1,1,1) translate3d(0, 0, 0);
@@ -100,27 +101,27 @@ const StyledButton = styled.button`
 
     ${props =>
       props.disabled &&
-      `
+      css`
       cursor: not-allowed !important;
       opacity: 0.5;
       &:hover {
         transform: none;
       }
-    `}
+    `};
 
     ${props =>
       props.isUnclickable &&
-      `
+      css`
       cursor: default !important;
       pointer-events: none;
       &:hover {
         transform: none;
       }
-    `}
+    `};
 
     ${props =>
       props.isLoading &&
-      `
+      css`
       cursor: progress !important;
       opacity: 0.7;
 
@@ -138,26 +139,26 @@ const StyledButton = styled.button`
       &:hover {
         transform: none;
       }
-    `}
+    `};
 
     ${props =>
       props.containsIcon &&
-      `
+      css`
       svg {
         display: block;
         margin: 0;
       }
       padding: ${props.size === SIZES.SMALL ? '7' : '12'}px;
-    `}
+    `};
 
     ${props =>
       props.appearance === APPEARANCES.PRIMARY &&
-      `
+      css`
       background: ${color.primary};
       color: ${color.lightest};
 
       ${!props.isLoading &&
-        `
+        css`
         &:hover {
             background: ${darken(0.05, color.primary)};
         }
@@ -170,17 +171,17 @@ const StyledButton = styled.button`
         &:focus:hover {
             box-shadow: ${rgba(color.secondary, 0.2)} 0 8px 18px 0px;
         }
-     `}
-    `}
+     `};
+    `};
 
     ${props =>
       props.appearance === APPEARANCES.TERTIARY &&
-      `
+      css`
       background: ${color.tertiary};
       color: ${color.darkest};
 
       ${!props.isLoading &&
-        `
+        css`
         &:hover {
             background: ${darken(0.05, color.tertiary)};
         }
@@ -193,18 +194,18 @@ const StyledButton = styled.button`
         &:focus:hover {
             box-shadow: ${rgba(color.tertiary, 0.2)} 0 8px 18px 0px;
         }
-      `}
-    `}
+      `};
+    `};
 
     ${props =>
       props.appearance === APPEARANCES.OUTLINE &&
-      `
+      css`
       box-shadow: ${color.medium} 0 0 0 1px inset;
       color: ${color.dark}
       background: transparent;
 
       ${!props.isLoading &&
-        `
+        css`
         &:hover {
             box-shadow: ${color.mediumdark} 0 0 0 1px inset;
         }
@@ -220,12 +221,12 @@ const StyledButton = styled.button`
         &:focus:hover {
             box-shadow: ${color.medium} 0 0 0 1px inset, ${rgba(color.secondary, 0.2)} 0 8px 18px 0px;
         }
-      `}
-    `}
+      `};
+    `};
 
     ${props =>
       props.appearance === APPEARANCES.PRIMARY_OUTLINE &&
-      `
+      css`
         box-shadow: ${color.primary} 0 0 0 1px inset;
         color: ${color.primary};
 
@@ -245,11 +246,11 @@ const StyledButton = styled.button`
         &:focus:hover {
             box-shadow: ${color.primary} 0 0 0 1px inset, ${rgba(color.primary, 0.2)} 0 8px 18px 0px;
         }
-      `}
+      `};
 
     ${props =>
       props.appearance === APPEARANCES.SECONDARY_OUTLINE &&
-      `
+      css`
         box-shadow: ${color.secondary} 0 0 0 1px inset;
         color: ${color.secondary};
 
@@ -268,25 +269,21 @@ const StyledButton = styled.button`
         &:focus:hover {
             box-shadow: ${color.secondary} 0 0 0 1px inset, ${rgba(color.secondary, 0.2)} 0 8px 18px 0px;
         }
-      `}
+      `};
 `;
 
-// const ButtonLink = StyledButton.withComponent('a');
+const StyledButton = styled.button`${buttonStyles}`;
+
 const ButtonLink = styled(StyledButton).attrs({
     as: 'a'
 });
 
 const applyStyle = ButtonWrapper => {
     return (
-        ButtonWrapper &&
-        // StyledButton.withComponent(({ containsIcon, isLoading, isUnclickable, ...rest }) => (
-        //     <ButtonWrapper {...rest} />
-        // ))
-        styled(StyledButton).attrs({
-            as: ({ containsIcon, isLoading, isUnclickable, ...rest}) => (
-                <ButtonWrapper {...rest} />
-            )
-        })
+        ButtonWrapper &&        
+        styled(({ containsIcon, isLoading, isUnclickable, ...rest }) => (
+            <ButtonWrapper {...rest} />
+        ))`${buttonStyles}`        
     );
 };
 
