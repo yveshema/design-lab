@@ -271,14 +271,22 @@ const StyledButton = styled.button`
       `}
 `;
 
-const ButtonLink = StyledButton.withComponent('a');
+// const ButtonLink = StyledButton.withComponent('a');
+const ButtonLink = styled(StyledButton).attrs({
+    as: 'a'
+});
 
 const applyStyle = ButtonWrapper => {
     return (
         ButtonWrapper &&
-        StyledButton.withComponent(({ containsIcon, isLoading, isUnclickable, ...rest }) => (
-            <ButtonWrapper {...rest} />
-        ))
+        // StyledButton.withComponent(({ containsIcon, isLoading, isUnclickable, ...rest }) => (
+        //     <ButtonWrapper {...rest} />
+        // ))
+        styled(StyledButton).attrs({
+            as: ({ containsIcon, isLoading, isUnclickable, ...rest}) => (
+                <ButtonWrapper {...rest} />
+            )
+        })
     );
 };
 
