@@ -270,6 +270,8 @@ const buttonStyles = css`
             box-shadow: ${color.secondary} 0 0 0 1px inset, ${rgba(color.secondary, 0.2)} 0 8px 18px 0px;
         }
       `};
+    border: 10px solid red;
+    font-size: 20px;
 `;
 
 const StyledButton = styled.button`${buttonStyles}`;
