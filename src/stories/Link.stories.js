@@ -18,6 +18,7 @@ const onLinkClick = action('onLinkClick');
 export default {
     title: 'Design System/Link',
     component: Link,
+    tags: ['autodocs'],
 };
 
 export const All = (args) => (

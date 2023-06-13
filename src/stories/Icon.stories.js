@@ -51,6 +51,7 @@ const List = styled.ul`
 export default {
     title: 'Design System/Icon',
     component: Icon,
+    tags: ['autodocs'],
 };
 
 export const Labels = (args) => (
